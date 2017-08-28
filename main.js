@@ -1,13 +1,13 @@
 var productsContainer = document.getElementById('products');
 var discount = document.getElementById('season_discount');
 
-// ----  Categories to DOM ---- //
+// ----  Categories to DOM Selector ---- //
 
 function discountString(cat){
 	var categoriesString = "";
 		for (var i = 0; i < cat.length; i ++){
 			var catString = "";
-			catString +=	`<option class ="options" value="${cat[i].discount}" name="${cat[i].name}" id="category-${cat[i].id}">${cat[i].season_discount}</option>`
+			catString +=	`<option class ="options" value="${cat[i].discount}" name="${cat[i].name}" id="${cat[i].id}">${cat[i].season_discount}</option>`
 			categoriesString += catString;
 	}
 	writeValue(categoriesString);
@@ -18,21 +18,43 @@ function writeValue (cats) {
 }
 
 // ---- Event Listener for Select ---- //
-discount.addEventListener("change", changeEventHandler);
-// document.addEventListener('DOMContentLoaded',function() {
-//     document.querySelector('select[id="season_discount"]').onchange=changeEventHandler;
-// },false);
+discount.addEventListener("change", changeEvent);
+var disc = ''
+function changeEvent(e) {
+	// console.log(e.target.value)
+	var originalPrice = document.getElementsByClassName('products');
+	for (var x = 0; x < originalPrice.length; x++){
+		if (originalPrice[x].id === `${e.target.selectedIndex}`){
+			var price = document.getElementById(`price-${x}`);
+			var newPrice = price.innerHTML.replace( /^\D+/g, '')
+			disc = parseInt(newPrice) * e.target.value;
+			newPrice = newPrice - disc;
+			newPrice = newPrice.toFixed(2);
+			price.innerHTML = `Price: ${newPrice}`;
+			// originalPrice[x].classList.toggle('border-red');
+		}
+	}
+}
 
-function changeEventHandler(event) {
- 	console.log(discount.value);
-// 	// if (){};  
- }
+// ---- Category Key ---- //
+function key(data) {
+	var category = ''
+	if (data === 1) {
+		category = "Apparel";
+	} else if (data === 2){
+    category = "Furniture";
+  } else if (data === 3){
+  	category = "Household";   
+  }
+  return category;
+};
 
 
 function executeThisCodeAfterFileLoads1(){
 	var data = JSON.parse(this.responseText);
 	discountString(data.categories);
-}
+	key(data.categories);
+};
 
 // ----  Products to DOM ---- //
 
@@ -40,15 +62,16 @@ function domproductString(products) {
 	var productString = "";
 		for (var i = 0; i < products.length; i ++){
 			var string = "";
-			string += `<div class="products" id = '${products[i].name}'>`
-			string += 	`<p>Product:${products[i].name}</p>`
-			string += 	`<p>Price:${products[i].price}</p>`
+			string += `<div class="products" name = '${products[i].name}' id="${products[i].category_id}">`
+			string += 	`<p>Product: ${(products[i].name)}</p>`	
+			string +=		`<p>Category: ${key(products[i].category_id)}</p>`
+			string += 	`<p id='price-${[i]}'>Price: ${(products[i].price)}</p>`
 			string +=	`</div>`
 			productString += string;
 		}
 	writeToDom(productString);
-}
-
+	};
+	
 function writeToDom(string){
 	productsContainer.innerHTML = string;
 }
