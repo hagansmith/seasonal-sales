@@ -6,7 +6,7 @@ var discount = document.getElementById('season_discount');
 function discountString(cat){
 	var categoriesString = "";
 		for (var i = 0; i < cat.length; i ++){
-			var catString = "";
+			var catString = '';
 			catString +=	`<option class ="options" value="${cat[i].discount}" name="${cat[i].name}" id="${cat[i].id}">${cat[i].season_discount}</option>`
 			categoriesString += catString;
 	}
@@ -14,7 +14,7 @@ function discountString(cat){
 }
 
 function writeValue (cats) {
-	discount.innerHTML = cats;
+	discount.innerHTML += cats;
 }
 
 // ---- Event Listener for Select ---- //
@@ -23,15 +23,24 @@ var disc = ''
 function changeEvent(e) {
 	// console.log(e.target.value)
 	var originalPrice = document.getElementsByClassName('products');
+	var priceArray = [];
 	for (var x = 0; x < originalPrice.length; x++){
 		if (originalPrice[x].id === `${e.target.selectedIndex}`){
 			var price = document.getElementById(`price-${x}`);
-			var newPrice = price.innerHTML.replace( /^\D+/g, '')
+			var newPrice = price.innerHTML.replace( /^\D+/g, '');
+			priceArray.push(newPrice);
 			disc = parseInt(newPrice) * e.target.value;
 			newPrice = newPrice - disc;
 			newPrice = newPrice.toFixed(2);
-			price.innerHTML = `Price: ${newPrice}`;
-			// originalPrice[x].classList.toggle('border-red');
+			price.innerHTML += `<p>Discounted Price: ${newPrice}</p>`;
+			originalPrice[x].classList.add('border-red');
+			console.log(originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, ''))
+		 // } else if (originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, '') !== originalPrice[x].lastChild.lastChild.innerHTML.replace( /^\D+/g, '')) {
+		 // 	console.log('not equal')
+			// price = document.getElementById(`price-${x}`);
+			// newPrice = price.innerHTML;
+			// price.innerHTML = priceArray[x];
+			// originalPrice[x].classList.remove('border-red')
 		}
 	}
 }
