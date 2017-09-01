@@ -1,21 +1,8 @@
-
-#products {
-	display: flex;
-}
-
 .products {
-	flex: wrap;
-	margin: auto;
 	border: 2px dashed turquoise;
-	width: 125px;
-	height: 200px;
-	text-align: center;
-	padding: 10px;
 }
-
 
 /* Selector action*/
-.border-red{
+.redText{
 	color: magenta;
-	border: 2px, solid, red;
 }

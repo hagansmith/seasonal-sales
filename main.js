@@ -22,9 +22,11 @@ discount.addEventListener("change", changeEvent);
 var disc = ''
 function changeEvent(e) {
 	// console.log(e.target.value)
-	var originalPrice = document.getElementsByClassName('products');
+	var originalPrice = document.getElementsByClassName('products'); 
 	var priceArray = [];
 	for (var x = 0; x < originalPrice.length; x++){
+		
+
 		if (originalPrice[x].id === `${e.target.selectedIndex}`){
 			var price = document.getElementById(`price-${x}`);
 			var newPrice = price.innerHTML.replace( /^\D+/g, '');
@@ -34,9 +36,9 @@ function changeEvent(e) {
 			newPrice = newPrice.toFixed(2);
 			price.innerHTML += `<p>Discounted Price: ${newPrice}</p>`;
 			originalPrice[x].classList.add('border-red');
-			console.log(originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, ''))
-		 // } else if (originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, '') !== originalPrice[x].lastChild.lastChild.innerHTML.replace( /^\D+/g, '')) {
-		 // 	console.log('not equal')
+			// console.log(originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, ''))
+		  //} else if (originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, '') !== originalPrice[x].lastChild.lastChild.innerHTML.replace( /^\D+/g, '')) {
+		 	//console.log('not equal')
 			// price = document.getElementById(`price-${x}`);
 			// newPrice = price.innerHTML;
 			// price.innerHTML = priceArray[x];
@@ -46,6 +48,7 @@ function changeEvent(e) {
 }
 
 // ---- Category Key ---- //
+
 function key(data) {
 	var category = ''
 	if (data === 1) {
@@ -68,7 +71,7 @@ function executeThisCodeAfterFileLoads1(){
 // ----  Products to DOM ---- //
 
 function domproductString(products) {
-	var productString = "";
+	var productString = '';
 		for (var i = 0; i < products.length; i ++){
 			var string = "";
 			string += `<div class="products" name = '${products[i].name}' id="${products[i].category_id}">`
@@ -94,7 +97,7 @@ function executeThisCodeIfFileErrors(){
 	console.log("Shit Broke");
 }
 
-// ---- JSON GET Requests ---- //
+// ---- XHR Request ---- //
 
 var myRequest = new XMLHttpRequest();
 myRequest.addEventListener("load", executeThisCodeAfterFileLoads);
