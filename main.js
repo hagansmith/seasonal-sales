@@ -22,10 +22,10 @@ discount.addEventListener("change", changeEvent);
 var disc = ''
 function changeEvent(e) {
 	// console.log(e.target.value)
-	var originalPrice = document.getElementsByClassName('products'); 
+	var originalPrice = document.getElementsByClassName('products');
 	var priceArray = [];
 	for (var x = 0; x < originalPrice.length; x++){
-		
+
 
 		if (originalPrice[x].id === `${e.target.selectedIndex}`){
 			var price = document.getElementById(`price-${x}`);
@@ -36,13 +36,6 @@ function changeEvent(e) {
 			newPrice = newPrice.toFixed(2);
 			price.innerHTML += `<p>Discounted Price: ${newPrice}</p>`;
 			originalPrice[x].classList.add('border-red');
-			// console.log(originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, ''))
-		  //} else if (originalPrice[x].lastChild.innerHTML.replace( /^\D+/g, '') !== originalPrice[x].lastChild.lastChild.innerHTML.replace( /^\D+/g, '')) {
-		 	//console.log('not equal')
-			// price = document.getElementById(`price-${x}`);
-			// newPrice = price.innerHTML;
-			// price.innerHTML = priceArray[x];
-			// originalPrice[x].classList.remove('border-red')
 		}
 	}
 }
@@ -56,7 +49,7 @@ function key(data) {
 	} else if (data === 2){
     category = "Furniture";
   } else if (data === 3){
-  	category = "Household";   
+  	category = "Household";
   }
   return category;
 };
@@ -75,7 +68,7 @@ function domproductString(products) {
 		for (var i = 0; i < products.length; i ++){
 			var string = "";
 			string += `<div class="products" name = '${products[i].name}' id="${products[i].category_id}">`
-			string += 	`<p>Product: ${(products[i].name)}</p>`	
+			string += 	`<p>Product: ${(products[i].name)}</p>`
 			string +=		`<p>Category: ${key(products[i].category_id)}</p>`
 			string += 	`<p id='price-${[i]}'>Price: ${(products[i].price)}</p>`
 			string +=	`</div>`
@@ -83,7 +76,7 @@ function domproductString(products) {
 		}
 	writeToDom(productString);
 	};
-	
+
 function writeToDom(string){
 	productsContainer.innerHTML = string;
 }
